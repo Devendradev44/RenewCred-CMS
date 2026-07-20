@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getPages, Page } from "@/services/page.service";
+import { deletePage } from "@/services/page.service";
 
 export default function PagesPage() {
   const [pages, setPages] = useState<Page[]>([]);
@@ -70,11 +71,28 @@ export default function PagesPage() {
                   </Link>
 
                   <button
-                    onClick={() => console.log(page._id)}
+                    onClick={async () => {
+                        const confirmed = window.confirm(
+                        "Are you sure you want to delete this page?"
+                        );
+
+                        if (!confirmed) return;
+
+                        try {
+                        await deletePage(page._id);
+
+                        setPages((prev) => prev.filter((p) => p._id !== page._id));
+
+                        alert("Page deleted successfully!");
+                        } catch (error) {
+                        console.error(error);
+                        alert("Failed to delete page.");
+                        }
+                    }}
                     className="text-red-600"
-                  >
+                    >
                     Delete
-                  </button>
+                    </button>
                 </td>
               </tr>
             ))}
