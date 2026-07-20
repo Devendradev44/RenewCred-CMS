@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
+import pageRoutes from "./routes/page.routes.js";
+
 
 dotenv.config();
 
@@ -31,6 +33,7 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.use("/api/auth", authRoutes);
+app.use("/api/pages", pageRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
