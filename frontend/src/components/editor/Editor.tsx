@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import EditorJS, { OutputData } from "@editorjs/editorjs";
-import Header from "@editorjs/header";
-import List from "@editorjs/list";
-import Table from "@editorjs/table";
+import type EditorJS from "@editorjs/editorjs";
+import type { OutputData } from "@editorjs/editorjs";
 
 interface EditorProps {
   data?: OutputData;
@@ -13,36 +11,49 @@ interface EditorProps {
 
 export default function Editor({ data, onChange }: EditorProps) {
   const editorRef = useRef<EditorJS | null>(null);
-  const holderRef = useRef<HTMLDivElement | null>(null);
+  const holderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!holderRef.current || editorRef.current) return;
+    let isMounted = true;
 
-    const editor = new EditorJS({
-      holder: holderRef.current,
+    const initEditor = async () => {
+      const EditorJS = (await import("@editorjs/editorjs")).default;
+      const Header = (await import("@editorjs/header")).default;
+      const List = (await import("@editorjs/list")).default;
+      const Table = (await import("@editorjs/table")).default;
 
-      data: data ?? {
-        blocks: [],
-      },
+      if (!holderRef.current || !isMounted) return;
 
-      tools: {
-        header: Header,
-        list: List,
-        table: Table,
-      },
+      editorRef.current = new EditorJS({
+        holder: holderRef.current,
 
-      async onChange(api) {
-        const saved = await api.saver.save();
-        onChange?.(saved);
-      },
-    });
+        data: data || {
+          blocks: [],
+        },
 
-    editorRef.current = editor;
+        tools: {
+          header: Header,
+          list: List,
+          table: Table,
+        },
+
+        async onChange(api) {
+          const saved = await api.saver.save();
+          onChange?.(saved);
+        },
+      });
+    };
+
+    initEditor();
 
     return () => {
-      editor.isReady
-        .then(() => editor.destroy())
-        .catch(() => {});
+      isMounted = false;
+
+      if (editorRef.current) {
+        editorRef.current.isReady
+          .then(() => editorRef.current?.destroy())
+          .catch(() => {});
+      }
 
       editorRef.current = null;
     };
@@ -51,7 +62,7 @@ export default function Editor({ data, onChange }: EditorProps) {
   return (
     <div
       ref={holderRef}
-      className="rounded-lg border border-gray-300 bg-white p-4 min-h-[300px]"
+      className="min-h-[300px] rounded-lg border border-gray-300 bg-white p-4"
     />
   );
 }
