@@ -32,3 +32,8 @@ export const deletePage = async (id: string) => {
   const response = await api.delete(`/pages/${id}`);
   return response.data;
 };
+
+export const getPageBySlug = async (slug: string) => {
+  const response = await api.get(`/pages/slug/${slug}`);
+  return response.data;
+};

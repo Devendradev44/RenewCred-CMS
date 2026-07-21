@@ -95,9 +95,7 @@ export default function CreatePage() {
         <div>
             <label className="mb-2 block">Content</label>
 
-            {!loading && (
             <Editor
-              key={id as string}
               data={form.content}
               onChange={(data) =>
                 setForm((prev) => ({
@@ -106,7 +104,6 @@ export default function CreatePage() {
                 }))
               }
             />
-          )}
           </div>
 
         <button

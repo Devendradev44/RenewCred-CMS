@@ -85,3 +85,40 @@ export const deletePage = async (req, res) => {
     });
   }
 };
+
+// export const getPageBySlug = async (req, res) => {
+//   try {
+//     const page = await Page.findOne({
+//       slug: req.params.slug,
+//       status: "published",
+//     });
+
+//     if (!page) {
+//       return res.status(404).json({
+//         message: "Page not found",
+//       });
+//     }
+
+//     res.json(page);
+//   } catch (error) {
+//     res.status(500).json({
+//       message: error.message,
+//     });
+//   }
+// };
+export const getPageBySlug = async (req, res) => {
+  console.log("Requested slug:", req.params.slug);
+
+  const page = await Page.findOne({
+    slug: req.params.slug,
+    status: "published",
+  });
+
+  console.log("Found page:", page);
+
+  if (!page) {
+    return res.status(404).json({ message: "Page not found" });
+  }
+
+  res.json(page);
+};
