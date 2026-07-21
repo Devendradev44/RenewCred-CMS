@@ -2,6 +2,7 @@
 
 import { use, useEffect, useState } from "react";
 import { getPageBySlug } from "@/services/page.service";
+import Output from "editorjs-react-renderer";
 
 interface Props {
   params: Promise<{
@@ -42,9 +43,7 @@ export default function PublicPage({ params }: Props) {
     <main className="mx-auto max-w-4xl p-10">
       <h1 className="mb-6 text-4xl font-bold">{page.title}</h1>
 
-      <pre className="rounded bg-gray-100 p-4 overflow-auto">
-        {JSON.stringify(page.content, null, 2)}
-      </pre>
+      <Output data={page.content} />
     </main>
   );
 }
