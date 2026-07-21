@@ -1,5 +1,6 @@
 "use client";
 
+import Editor from "@/components/editor/Editor";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getPageById, updatePage } from "@/services/page.service";
@@ -115,6 +116,21 @@ export default function EditPage() {
             <option value="draft">Draft</option>
             <option value="published">Published</option>
           </select>
+        </div>
+
+
+        <div>
+          <label className="mb-2 block">Content</label>
+
+          <Editor
+            data={form.content}
+            onChange={(data) =>
+              setForm((prev) => ({
+                ...prev,
+                content: data,
+              }))
+            }
+          />
         </div>
 
         <button

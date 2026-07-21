@@ -10,6 +10,7 @@ const connectDB = async () => {
     console.error(error.message);
     process.exit(1);
   }
+  console.log("Connected DB:", mongoose.connection.name);
 };
 
 export default connectDB;

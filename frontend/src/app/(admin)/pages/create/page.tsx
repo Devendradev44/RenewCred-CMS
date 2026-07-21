@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createPage } from "@/services/page.service";
+import Editor from "@/components/editor/Editor";
 
 export default function CreatePage() {
   const router = useRouter();
@@ -47,7 +48,9 @@ export default function CreatePage() {
   };
 
   return (
+    
     <div className="mx-auto max-w-2xl p-6">
+      
       <h1 className="mb-6 text-3xl font-bold">Create Page</h1>
 
       <form onSubmit={handleSubmit} className="space-y-5">
@@ -88,6 +91,20 @@ export default function CreatePage() {
             <option value="published">Published</option>
           </select>
         </div>
+
+        <div>
+            <label className="mb-2 block">Content</label>
+
+            <Editor
+              data={form.content}
+              onChange={(data) =>
+                setForm((prev) => ({
+                  ...prev,
+                  content: data,
+                }))
+              }
+            />
+          </div>
 
         <button
           type="submit"
