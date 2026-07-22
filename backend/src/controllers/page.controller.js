@@ -86,26 +86,6 @@ export const deletePage = async (req, res) => {
   }
 };
 
-// export const getPageBySlug = async (req, res) => {
-//   try {
-//     const page = await Page.findOne({
-//       slug: req.params.slug,
-//       status: "published",
-//     });
-
-//     if (!page) {
-//       return res.status(404).json({
-//         message: "Page not found",
-//       });
-//     }
-
-//     res.json(page);
-//   } catch (error) {
-//     res.status(500).json({
-//       message: error.message,
-//     });
-//   }
-// };
 export const getPageBySlug = async (req, res) => {
   console.log("Requested slug:", req.params.slug);
 
@@ -122,3 +102,12 @@ export const getPageBySlug = async (req, res) => {
 
   res.json(page);
 };
+// export const getPageBySlug = async (req, res) => {
+//   console.log("Requested slug:", req.params.slug);
+
+//   const allPages = await Page.find();
+
+//   console.log(allPages);
+
+//   res.json(allPages);
+// };

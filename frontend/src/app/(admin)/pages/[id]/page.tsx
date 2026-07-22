@@ -4,19 +4,29 @@ import Editor from "@/components/editor/Editor";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getPageById, updatePage } from "@/services/page.service";
+import type { OutputData } from "@editorjs/editorjs";
 
 export default function EditPage() {
   const { id } = useParams();
   const router = useRouter();
 
-  const [form, setForm] = useState({
-    title: "",
-    slug: "",
-    status: "draft",
-    content: {
-      blocks: [],
-    },
-  });
+  type PageForm = {
+  title: string;
+  slug: string;
+  status: string;
+  content: OutputData;
+};
+
+const [form, setForm] = useState<PageForm>({
+  title: "",
+  slug: "",
+  status: "draft",
+  content: {
+    time: Date.now(),
+    blocks: [],
+    version: "2.31.0",
+  },
+});
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

@@ -2,6 +2,11 @@
 
 import { use, useEffect, useState } from "react";
 import { getPageBySlug } from "@/services/page.service";
+import Navbar from "@/components/public/Navbar";
+import Footer from "@/components/public/Footer";
+import Sidebar from "@/components/public/Sidebar";
+import Search from "@/components/public/Search";
+import Article from "@/components/public/Article";
 import Output from "editorjs-react-renderer";
 
 interface Props {
@@ -40,10 +45,22 @@ export default function PublicPage({ params }: Props) {
   }
 
   return (
-    <main className="mx-auto max-w-4xl p-10">
-      <h1 className="mb-6 text-4xl font-bold">{page.title}</h1>
+      <>
+        <Navbar />
 
-      <Output data={page.content} />
-    </main>
-  );
+        <main className="max-w-7xl mx-auto px-8 py-10">
+          <Search />
+
+          <div className="mt-8 flex gap-10">
+            <Sidebar />
+
+            <Article title={page.title}>
+              <Output data={page.content} />
+            </Article>
+          </div>
+        </main>
+
+        <Footer />
+      </>
+    );
 }

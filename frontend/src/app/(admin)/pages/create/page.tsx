@@ -4,18 +4,28 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createPage } from "@/services/page.service";
 import Editor from "@/components/editor/Editor";
+import type { OutputData } from "@editorjs/editorjs";
 
 export default function CreatePage() {
   const router = useRouter();
 
-  const [form, setForm] = useState({
-    title: "",
-    slug: "",
-    status: "draft",
-    content: {
-      blocks: [],
-    },
-  });
+  type PageForm = {
+  title: string;
+  slug: string;
+  status: string;
+  content: OutputData;
+};
+
+const [form, setForm] = useState<PageForm>({
+  title: "",
+  slug: "",
+  status: "draft",
+  content: {
+    time: Date.now(),
+    blocks: [],
+    version: "2.31.0",
+  },
+});
 
   const [loading, setLoading] = useState(false);
 
