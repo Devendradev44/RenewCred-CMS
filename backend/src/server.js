@@ -25,6 +25,8 @@ app.use(
       "http://localhost:3000",
       "https://renew-cred-cms-git-main-devendradev44s-projects.vercel.app",
       "https://renew-cred-cms.vercel.app", // if this becomes your production domain
+      "https://renew-cred-cms-flax.vercel.app/",
+      "https://renew-cred-chlhyj40w-devendradev44s-projects.vercel.app",
     ],
     credentials: true,
   })
