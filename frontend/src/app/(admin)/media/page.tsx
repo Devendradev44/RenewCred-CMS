@@ -108,7 +108,7 @@ export default function MediaPage() {
             <button
               onClick={() => {
                 navigator.clipboard.writeText(
-                  `http://localhost:5000${image.url}`
+                  `${process.env.NEXT_PUBLIC_API_URL?.replace("/api", "")}${image.url}`
                 );
                 toast.success("URL copied!");
               }}
