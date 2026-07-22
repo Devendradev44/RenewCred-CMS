@@ -69,6 +69,13 @@ app.get("/api/debug-cors", (req, res) => {
   });
 });
 
+app.get("/api/version", (req, res) => {
+  res.json({
+    message: "NEW SERVER",
+    time: new Date().toISOString(),
+  });
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/pages", pageRoutes);
 app.use("/api/media", mediaRoutes);
