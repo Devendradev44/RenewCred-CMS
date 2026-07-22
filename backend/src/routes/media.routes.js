@@ -1,4 +1,5 @@
 import express from "express";
+import protect from "../middleware/auth.middleware.js";
 import upload from "../middleware/upload.js";
 import {
   uploadMedia,
@@ -7,8 +8,14 @@ import {
 
 const router = express.Router();
 
-router.get("/", getMedia);
+// Protected Routes
+router.get("/", protect, getMedia);
 
-router.post("/", upload.single("image"), uploadMedia);
+router.post(
+  "/",
+  protect,
+  upload.single("image"),
+  uploadMedia
+);
 
 export default router;

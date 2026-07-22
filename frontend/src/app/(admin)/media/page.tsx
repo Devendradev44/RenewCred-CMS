@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "@/lib/axios";
 import toast from "react-hot-toast";
 
 interface Media {
@@ -18,7 +18,8 @@ export default function MediaPage() {
 
   const fetchImages = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/media");
+      const res = await api.get("/media");
+      console.log(localStorage.getItem("token"));
       setImages(res.data);
     } catch (error) {
       console.error(error);
@@ -42,15 +43,11 @@ export default function MediaPage() {
     try {
       setLoading(true);
 
-      await axios.post(
-        "http://localhost:5000/api/media",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await api.post("/media", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       toast.success("Image uploaded!");
 

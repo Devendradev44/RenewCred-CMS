@@ -27,6 +27,10 @@ export default function LoginPage() {
 
       localStorage.setItem("token", res.data.token);
 
+      console.log("Stored token:", localStorage.getItem("token"));
+
+      router.push("/dashboard");
+
       router.push("/dashboard");
     } catch (error: any) {
       alert(error.response?.data?.message || "Login failed");
