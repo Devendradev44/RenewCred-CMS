@@ -91,7 +91,7 @@ export default function MediaPage() {
             className="border rounded-lg shadow p-3"
           >
             <img
-              src={`http://localhost:5000${image.url}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL?.replace("/api", "")}${image.url}`}
               alt={image.filename}
               className="w-full h-48 object-cover rounded"
             />

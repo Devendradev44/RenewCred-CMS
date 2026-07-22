@@ -1,14 +1,12 @@
-import axios from "axios";
-
-const API = "http://localhost:5000/api/media";
+import api from "@/lib/axios";
 
 export const getMedia = async () => {
-  const res = await axios.get(API);
+  const res = await api.get("/media");
   return res.data;
 };
 
 export const uploadMedia = async (formData: FormData) => {
-  const res = await axios.post(API, formData, {
+  const res = await api.post("/media", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
