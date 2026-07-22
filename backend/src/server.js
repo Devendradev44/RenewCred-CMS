@@ -51,7 +51,9 @@ app.use(
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "RenewCred CMS API is running 🚀",
+    message: "THIS IS THE NEW SERVER",
+    time: new Date().toISOString(),
+    random: "ABC123XYZ",
   });
 });
 
